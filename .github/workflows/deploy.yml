@@ -56,6 +56,7 @@ jobs:
                sudo apt-get install -y docker-compose-v2
                sudo usermode -aG docker $USER
                newgrp docker
+               docker ps
                
                docker pull pranjal3665/django-notes-app:latest
                docker stop django-notes-app:latest || true
