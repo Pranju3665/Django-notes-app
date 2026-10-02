@@ -24,6 +24,9 @@ jobs:
               pip install mysqlclient
               pip install -r requirements.txt
 
+      - name: Create Docker Network
+        run: docker network create notes-app || true
+
       - name: Deploy application
         run: docker compose up -d
 
