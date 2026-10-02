@@ -50,21 +50,17 @@ jobs:
            key: ${{ secrets.EC2_SSH_KEY}}
 
            script: |
-               sudo apt-get update
-               sudo apt-get install -y docker.io
-               sudo systemctl status docker
-               sudo apt-get install -y docker-compose-v2
-               sudo usermode -aG docker $USER
-               newgrp docker
-               docker ps
-               
-               docker pull pranjal3665/django-notes-app:latest
-               docker stop django-notes-app:latest || true
-               docker rm django-notes-app:latest
-
-               docker compose up -d 
-               docker run -d --name django-notes-app --restart unless-stopped -p 80:80 pranjal3665/django-notes-app:latest
-
+              set -e
+              PROJECT_DIR="/home/ubuntu/projects/django-notes-app" 
+              sudo -n systemctl enable --now docker 
+              cd "$PROJECT_DIR"
+              test -f docker-compose.yml 
+              test -f .env
+              git pull --ff-only origin main
+              sudo docker network inspect notes-app >/dev/null 2>&1 || sudo docker network create notes-app
+              sudo docker compose -f "$PROJECT_DIR/docker-compose.yml" pull django db
+              sudo docker compose -f "$PROJECT_DIR/docker-compose.yml" up -d --build 
+              sudo docker compose -f "$PROJECT_DIR/docker-compose.yml" ps
 
 
 
