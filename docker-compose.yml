@@ -35,8 +35,7 @@ services:
      
     
   django:
-    build:
-      context: .
+    image: pranjal3665/django-notes-app:latest
     container_name:  "django_cont"
     command: sh -c "python manage.py migrate --no-input && gunicorn notesapp.wsgi --bind 0.0.0.0:8000" 
     ports:
