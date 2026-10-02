@@ -39,7 +39,7 @@ jobs:
         run: docker push pranjal3665/django-notes-app:latest
 
       - name: connect to Ec2
-        uses: application/ssh-action@v1.2.0
+        uses: appleboy/ssh-action@v1.2.0
         with:
            host: ${{ secrets.EC2_hOST }}
            username: ${{ secrets.EC2_USERNAME}}
