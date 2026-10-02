@@ -50,18 +50,18 @@ jobs:
            key: ${{ secrets.EC2_SSH_KEY}}
 
            script: |
-              set -e
-              PROJECT_DIR="/home/ubuntu/projects/django-notes-app" 
-              sudo -n systemctl enable --now docker 
-              cd "$PROJECT_DIR"
-              test -f docker-compose.yml 
-              test -f .env
-              git pull --ff-only origin main
-              sudo docker network inspect notes-app >/dev/null 2>&1 || sudo docker network create notes-app
-              sudo docker compose -f "$PROJECT_DIR/docker-compose.yml" pull django db
-              sudo docker compose -f "$PROJECT_DIR/docker-compose.yml" up -d --build 
-              sudo docker compose -f "$PROJECT_DIR/docker-compose.yml" ps
+             set -e
+             sudo -n systemctl enable --now docker
+             if [ ! -d /home/ubuntu/django-notes-app/.git ]; then
+               git clone https://github.com/Pranju3665/Django-notes-app.git /home/ubuntu/django-notes-app
+             else
+               cd /home/ubuntu/django-notes-app git pull --ff-only origin main
+             fi
 
+             cd /home/ubuntu/django-notes-app
+             sudo docker network inspect notes-app >/dev/null 2>&1 || sudo docker network create notes-app
+             sudo docker compose up -d --build
+             sudo docker compose ps
 
 
 
