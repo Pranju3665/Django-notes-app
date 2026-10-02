@@ -1,30 +1,40 @@
-# Simple Notes App for TWS Community
+# Simple Notes App
+
 This is a simple notes app built with React and Django.
 
 ## Requirements
+
 1. Python 3.9
 2. Node.js
 3. React
 
 ## Installation
-1. Clone the repository
-```
-git clone https://github.com/LondheShubham153/django-notes-app.git
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Pranju3665/Django-notes-app.git
+cd Django-notes-app
 ```
 
-2. Build the app
-```
+### 2. Build the Docker image
+
+```bash
 docker build -t notes-app .
 ```
 
-3. Run the app
-```
+### 3. Run the application
+
+```bash
 docker run -d -p 8000:8000 notes-app:latest
 ```
 
 ## Nginx
 
-Install Nginx reverse proxy to make this application available
+Install Nginx as a reverse proxy to make this application available.
 
-`sudo apt-get update`
-`sudo apt install nginx`
+```bash
+sudo apt-get update
+sudo apt install nginx
+```
+
