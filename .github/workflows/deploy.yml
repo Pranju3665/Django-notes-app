@@ -49,7 +49,12 @@ jobs:
            username: ${{ secrets.EC2_USERNAME}}
            key: ${{ secrets.EC2_SSH_KEY}}
 
-           script:
+           script: |
+               sudo apt-get update
+               sudo apt-get install -y docker.io
+               sudo systemctl status docker
+               sudo apt-get install -y docker-compose-v2
+               
                docker pull pranjal3665/django-notes-app:latest
                docker stop django-notes-app:latest || true
                docker rm django-notes-app:latest
